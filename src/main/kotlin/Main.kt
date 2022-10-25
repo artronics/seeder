@@ -1,7 +1,23 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import java.sql.DriverManager
+import java.sql.SQLException
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+
+fun main(args: Array<String>) {
+    val url = "jdbc:postgresql://url"
+    val user = "user"
+    val password = "pass"
+
+    try {
+        DriverManager.getConnection(url, user,  password).use { con ->
+            con.createStatement().use { st ->
+                st.executeQuery("SELECT VERSION()").use { rs ->
+                    if (rs.next()) {
+                        println(rs.getString(1))
+                    }
+                }
+            }
+        }
+    } catch (ex: SQLException) {
+        throw ex
+    }
 }
