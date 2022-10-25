@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation("org.postgresql:postgresql:42.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
     testImplementation(kotlin("test"))
 }
 
